@@ -43,6 +43,8 @@ Also assumed is that there is a Mongo database called calliope
 containing a collection "cortex" with MVDs in it. This is because this 
 service is intended to run as part of the Ecdosis back end.
 
-### Example of Charles Harpur's Creek of the Four Graves in the "swoopogram" style:
+### Example in the "swoopogram" style:
 
 ![Creek of the four Graves](creek-of-the-four-graves.png)
+
+Charles Harpur: *Creek of the Four Graves*
