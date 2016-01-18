@@ -23,4 +23,5 @@ package tree.constants;
  */
 public class Service {
     public static String TREE = "tree";
+    public static String TITLE = "title";
 }

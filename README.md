@@ -11,15 +11,12 @@ The service runs on port 8091 in debug mode and in Tomcat on 8080.
 docid -- required. This denotes the MVD in the cortex collection that
 will be used to generate the cladogram.
 
-font -- may be one of many fonts listed in the Phylip documentation. The 
-main ones are Times-Roman, Helvetica, Palatino-Roman, Courier.
-
 treegrows -- horizonal or vertical
 
 treestyle -- one of phenogram (angular branches), cladogram (square 
 branches), curvogram (curved branches), eurogram (straight then 
-angular), swoopogram (curved at each end otherwise straight), circular 
-(displays a circular tree with straight or circular branches).
+angular), swoopogram (curved more at each end otherwise lightly curved), 
+circular (displays a circular tree with straight or circular branches).
 
 usebranchlengths -- true or false. This adjusts branch lengths based on 
 edit distance. Not very useful unless all versions are substantially 
