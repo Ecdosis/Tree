@@ -26,5 +26,6 @@ public class Params {
     public static String TREEGROWS = "treegrows";
     public static String TREESTYLE = "treestyle";
     public static String USEBRANCHLENGTHS = "usebranchlengths"; 
+    public static String ANCNODES = "ancnodes";
     public static String DOCID = "docid";
 }

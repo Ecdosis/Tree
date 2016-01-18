@@ -43,7 +43,7 @@ public class DrawgramData{
         "Palatino-Bold","Palatino-BoldItalic","Symbol",
         "ZapfChancery-MediumItalic","ZapfDingbats"};
     static String[] treeStyles = {"phenogram","cladogram","curvogram",
-        "eurogram","swoopogram","circular","phenogram"};
+        "eurogram","swoopogram","circular"};
         /** path to newick tree file */
 		String  intree;
         /** name of font for rendering (see fontNames above) */
