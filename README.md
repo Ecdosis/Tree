@@ -5,7 +5,7 @@ similar. It is based on Phylip's drawgram tool. There are several
 options recognised by the service. Not all drawgram options are 
 configurable.
 
-The service runs on port 8091 in debug mode and in TOmcat on 8080.
+The service runs on port 8091 in debug mode and in Tomcat on 8080.
 
 ### Parameters
 docid -- required. This denotes the MVD in the cortex collection that
@@ -38,3 +38,7 @@ Phylip package. You have to build it first:
     cd phylip-3.696/src
     make -f Makefile.unx all
     sudo mv libdrawgram.so /usr/lib
+
+Also assumed is that there is a Mongo database called calliope 
+containing a collection "cortex" with MVDs in it. This is because this 
+service is intended to run as part of the Ecdosis back end.
