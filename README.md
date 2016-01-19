@@ -45,3 +45,11 @@ service is intended to run as part of the Ecdosis back end.
 ![Creek of the four Graves](creek-of-the-four-graves.png)
 
 Charles Harpur: *Creek of the Four Graves*
+
+### Bugs
+There is a bug in drawgram.c in the Phylip package: it crashes if there 
+is only one branch in the tree. The fix is to add the following ater the 
+"i++" on line 920, int he do-loop looking for a tip:
+
+  if ( nodep[i+1]==NULL )
+      nodep[i]->tip = true;

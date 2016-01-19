@@ -22,6 +22,7 @@ package tree.handler;
 import calliope.core.handler.GetHandler;
 import calliope.core.Utils;
 import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import javax.servlet.ServletOutputStream;
 import calliope.core.constants.Database;
@@ -34,10 +35,8 @@ import javax.servlet.http.HttpServletResponse;
 import tree.constants.Params;
 import tree.drawgram.DrawgramData;
 import tree.drawgram.DrawgramInterface;
-import java.util.Map;
-import java.util.Set;
 import java.util.List;
-import java.util.Iterator;
+import java.io.FileNotFoundException;
 import java.io.File;
 import java.io.PrintStream;
 import java.io.FileInputStream;
@@ -78,6 +77,20 @@ public class TreeGetHandler extends GetHandler
         {
         }
     }
+    void loadMissingFile( ByteArrayOutputStream bos ) throws Exception
+    {
+        File missing = new File("webapps/tree/WEB-INF/missing.jpg");
+        if ( !missing.exists() )
+        {
+            // try local directory
+            missing = new File("missing.jpg");
+            if ( !missing.exists() )
+                throw new FileNotFoundException("missing.jpg not found in "
+                    +System.getProperty("user.dir"));
+        }
+        BufferedImage notFound = ImageIO.read(missing);
+        ImageIO.write(notFound, "jpg",bos);
+    }
     /**
      * Get a JPG representing a tree of an MVD
      * @param request the servlet request
@@ -98,12 +111,12 @@ public class TreeGetHandler extends GetHandler
             treeGrows = request.getParameter(Params.TREEGROWS);
             useBranchLengths = Boolean.parseBoolean(request.getParameter(Params.USEBRANCHLENGTHS));
             ancNodes = request.getParameter(Params.ANCNODES);
-            System.out.println("docid="+docid);
-            //System.out.println("font="+font);
-            System.out.println("treegrows="+treeGrows);
-            System.out.println("treestyle="+treeStyle);
-            System.out.println("usebranchlengths="+useBranchLengths);
-            System.out.println("ancnodes="+ancNodes);
+//            System.out.println("docid="+docid);
+//            //System.out.println("font="+font);
+//            System.out.println("treegrows="+treeGrows);
+//            System.out.println("treestyle="+treeStyle);
+//            System.out.println("usebranchlengths="+useBranchLengths);
+//            System.out.println("ancnodes="+ancNodes);
             if ( docid != null )
             {
                 DrawgramData dgd = new DrawgramData();
@@ -123,6 +136,7 @@ public class TreeGetHandler extends GetHandler
                     File infile = File.createTempFile("TREE",".tre");
                     File plotfile = File.createTempFile("PLOT",".ps");
                     EcdosisMVD eMvd = doGetMVD( Database.CORTEX, docid );
+                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
                     if ( eMvd != null && eMvd.mvd != null )
                     {
                         double[][] d = eMvd.mvd.computeDiffMatrix();
@@ -147,26 +161,34 @@ public class TreeGetHandler extends GetHandler
                         dgd.setPlotfile(plotfile.getAbsolutePath());
                         if ( plotfile.exists() )
                             plotfile.delete();
-                        dgi.drawgramRun(dgd);
-                        fixPages(plotfile);
-                        // convert plotfile to JPG  
-                        //System.out.println(System.getProperty("java.library.path"));
-                        PSDocument document = new PSDocument();
-                        document.load(plotfile);
-                        SimpleRenderer renderer = new SimpleRenderer();
-                        if ( plotfile.exists() )
-                            plotfile.delete();
-                        renderer.setResolution(300);
-                        List<Image> images = renderer.render(document);
-                        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                        ImageIO.write((RenderedImage) images.get(0), "jpg",bos);
-                        // write to output
-                        response.setContentType("image/jpeg");
-                        ServletOutputStream output = response.getOutputStream();
-                        output.write(bos.toByteArray());
+                        try
+                        {
+                            dgi.drawgramRun(dgd);
+                            fixPages(plotfile);
+                            // convert plotfile to JPG  
+                            //System.out.println(System.getProperty("java.library.path"));
+                            PSDocument document = new PSDocument();
+                            document.load(plotfile);
+                            SimpleRenderer renderer = new SimpleRenderer();
+                            if ( plotfile.exists() )
+                                plotfile.delete();
+                            renderer.setResolution(300);
+                            List<Image> images = renderer.render(document);
+                            ImageIO.write((RenderedImage) images.get(0), "jpg",bos);
+                        }
+                        catch ( Exception e )
+                        {
+                            loadMissingFile(bos);
+                        }
                     }
                     else
-                        throw new TreeException("Couldn't find "+docid);
+                    {
+                        loadMissingFile(bos);
+                    }
+                    // write to output
+                    response.setContentType("image/jpeg");
+                    ServletOutputStream output = response.getOutputStream();
+                    output.write(bos.toByteArray());
                 }
                 catch ( Exception e )
                 {

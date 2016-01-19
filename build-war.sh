@@ -32,5 +32,6 @@ cp lib/itext-2.1.7.jar tree/WEB-INF/lib/
 cp lib/xmlgraphics-commons-1.4.jar tree/WEB-INF/lib/
 cp lib/jna-3.3.0.jar tree/WEB-INF/lib/
 cp lib/log4j-1.2.15.jar tree/WEB-INF/lib/
+cp missing.jpg tree/WEB-INF/
 jar cf tree.war -C tree WEB-INF
 echo "NB: you MUST copy the contents of tomcat-bin to \$tomcat_home/bin"
