@@ -11,9 +11,10 @@
             <file>file:/home/desmond/NetBeansProjects/Tree/src/tree/TreeWebApp.java</file>
             <file>file:/home/desmond/NetBeansProjects/Tree/src/tree/util/LabelData.java</file>
             <file>file:/home/desmond/NetBeansProjects/Tree/src/tree/util/PlotData.java</file>
+            <file>file:/home/desmond/NetBeansProjects/Tree/src/tree/drawgram/DrawgramData.java</file>
             <file>file:/home/desmond/NetBeansProjects/Tree/src/tree/JettyServer.java</file>
             <file>file:/home/desmond/NetBeansProjects/Tree/src/tree/exception/TreeException.java</file>
-            <file>file:/home/desmond/NetBeansProjects/Tree/src/tree/drawgram/DrawgramUserInterface.java</file>
+            <file>file:/home/desmond/NetBeansProjects/Tree/src/tree/handler/TitleHandler.java</file>
             <file>file:/home/desmond/NetBeansProjects/Tree/src/tree/util/DrawPreview.java</file>
             <file>file:/home/desmond/NetBeansProjects/Tree/src/tree/constants/Service.java</file>
         </group>

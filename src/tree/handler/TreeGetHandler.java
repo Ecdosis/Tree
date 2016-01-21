@@ -126,6 +126,7 @@ public class TreeGetHandler extends GetHandler
                     dgd.setTreeGrows(treeGrows);
                 if ( treeStyle != null )
                     dgd.setTreeStyle(treeStyle);
+                System.out.println("treeStyle = "+treeStyle);
                 if ( useBranchLengths != false )
                     dgd.setUseBranchLengths(useBranchLengths);
                 if ( ancNodes != null )

@@ -117,7 +117,6 @@ public class DrawgramData{
         public void setTreeStyle( String treestyle )
         {
             this.treestyle = treestyle;
-            System.out.println("treestyle="+treestyle);
         }
         public void setUseBranchLengths( boolean usebranchlengths )
         {
