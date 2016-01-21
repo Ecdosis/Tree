@@ -109,7 +109,8 @@ public class TreeGetHandler extends GetHandler
             docid = request.getParameter(Params.DOCID);
             //font = request.getParameter(Params.FONT);
             treeGrows = request.getParameter(Params.TREEGROWS);
-            useBranchLengths = Boolean.parseBoolean(request.getParameter(Params.USEBRANCHLENGTHS));
+            String ubl = request.getParameter(Params.USEBRANCHLENGTHS);
+            useBranchLengths = (ubl==null)?false:(ubl.toLowerCase().equals("yes"))?true:false;
             ancNodes = request.getParameter(Params.ANCNODES);
 //            System.out.println("docid="+docid);
 //            //System.out.println("font="+font);
