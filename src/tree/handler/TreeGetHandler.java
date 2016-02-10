@@ -120,6 +120,7 @@ public class TreeGetHandler extends GetHandler
 //            System.out.println("ancnodes="+ancNodes);
             if ( docid != null )
             {
+                System.out.println("docid OK");
                 DrawgramData dgd = new DrawgramData();
 //                if ( font != null )
 //                    dgd.setFont(font);
@@ -127,7 +128,7 @@ public class TreeGetHandler extends GetHandler
                     dgd.setTreeGrows(treeGrows);
                 if ( treeStyle != null )
                     dgd.setTreeStyle(treeStyle);
-                System.out.println("treeStyle = "+treeStyle);
+               // System.out.println("treeStyle = "+treeStyle);
                 if ( useBranchLengths != false )
                     dgd.setUseBranchLengths(useBranchLengths);
                 if ( ancNodes != null )
@@ -136,12 +137,15 @@ public class TreeGetHandler extends GetHandler
                 try
                 {
                     File infile = File.createTempFile("TREE",".tre");
+                    System.out.println("created tree file");
                     File plotfile = File.createTempFile("PLOT",".ps");
+                    System.out.println("created ps file");
                     EcdosisMVD eMvd = doGetMVD( Database.CORTEX, docid );
                     ByteArrayOutputStream bos = new ByteArrayOutputStream();
                     if ( eMvd != null && eMvd.mvd != null )
                     {
                         double[][] d = eMvd.mvd.computeDiffMatrix();
+                        System.out.println("About to create fast ME");
                         FastME fastME = new FastME();
                         int numVersions = eMvd.mvd.numVersions();
                         String[] shortNames = new String[numVersions];

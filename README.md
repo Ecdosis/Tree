@@ -11,7 +11,7 @@ The service runs on port 8091 in debug mode and in Tomcat on 8080.
 docid -- required. This denotes the MVD in the cortex collection that
 will be used to generate the cladogram.
 
-treegrows -- horizonal or vertical
+treegrows -- horizontal or vertical
 
 treestyle -- one of phenogram (angular branches), cladogram (square 
 branches), curvogram (curved branches), eurogram (straight then 
@@ -40,6 +40,11 @@ Also assumed is that there is a Mongo database called calliope
 containing a collection "cortex" with MVDs in it. This is because this 
 service is intended to run as part of the Ecdosis back end.
 
+Also the font files (font1 to font6) in the phylip package need to be 
+copied to the tomcat root directory, e.g. /var/lib/tomcat7 on Ubuntu, 
+Tomcat7 because otherwise libdrawgram won't find them and you'll get a 
+tomcat crash.
+
 ### Example in the "swoopogram" style:
 
 ![Creek of the four Graves](creek-of-the-four-graves.png)
@@ -48,8 +53,13 @@ Charles Harpur: *Creek of the Four Graves*
 
 ### Bugs
 There is a bug in drawgram.c in the Phylip package: it crashes if there 
-is only one branch in the tree. The fix is to add the following ater the 
-"i++" on line 920, int he do-loop looking for a tip:
+is only one branch in the tree. The fix is to add two lines after the 
+"i++" on line 920, so the do-loop reads:
 
-  if ( nodep[i+1]==NULL )
+  do
+  {
+    i++;
+    if ( nodep[i+1]==NULL )
       nodep[i]->tip = true;
+  }
+  while (!nodep[i]->tip);
